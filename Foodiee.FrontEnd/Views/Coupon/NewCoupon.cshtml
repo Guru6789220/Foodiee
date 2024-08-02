@@ -1,0 +1,71 @@
+﻿@model CouponDTO
+
+<style>
+    .error{
+        font-size:13px;
+        font-style:italic;
+    }
+</style>
+<div class="container-fluid">
+    <form  asp-action="NewCoupon" method="post">
+    <div class="card shadow-lg">
+        <div class="card-header text-center">
+            <h3 class="display-3" style="font-size:25px;">Create New Coupon</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-2 text-end">
+                   <label id="lblCouponCode" class="form-label " asp-for="CouponCode"></label><em class="text-danger"> * </em>: 
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" id="txtcouponcode" class="form-control col-lg-3" asp-for="CouponCode" />
+                        <span class="text-danger error" asp-validation-for="CouponCode"></span>
+                </div>
+                <div class="col-lg-3 text-end">
+                    <label class="form-label" id="lblDiscountPerec" asp-for="DiscountPerce"></label><em class="text-danger"> * </em>:
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" id="txtDiscountPerec" asp-for="DiscountPerce" class="form-control" />
+                    <span class="text-danger error" asp-validation-for="DiscountPerce"></span>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-2 text-end">
+                    <label id="lblminamount" asp-for="MiniumAmount" class="form-label"></label><em class="text-danger"> * </em>:
+                </div>
+                <div class="col-lg-3">
+                    <input class="col-lg-3 form-control" id="txtMinAmmount" asp-for="MiniumAmount" />
+                        <span class="text-danger error" asp-validation-for="MiniumAmount"></span>
+                </div>
+                 <div class="col-lg-3 text-end">
+                     <label id="lblStartDate" class="form-label" asp-for="StartDate"></label><em class="text-danger"> * </em>:
+                 </div>
+                 <div class="col-lg-3">
+                    <input type="datetime-local" class="form-control" id="start"  asp-for="StartDate"  />
+                        <span class="text-danger error" asp-validation-for="StartDate"></span>
+                 </div>
+               
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-2 text-end">
+                    <label id="lblStartDate" class="form-label" asp-for="EndDate"></label><em class="text-danger"> * </em>:
+                </div>
+                <div class="col-lg-3">
+                    <input type="datetime-local" class="form-control" id="start" name="EndDate" asp-for="EndDate" value="@DateTime.Now.AddDays(10).ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(60).ToString("yyyy-MM-dd")" />
+                        <span class="text-danger error" asp-validation-for="EndDate"></span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <a class="btn btn-secondary col-lg-1" asp-action="Index">Back</a>
+                    <input type="submit" value="Save" class="btn btn-primary col-lg-1"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_validationscriptspartial"></partial>
+}

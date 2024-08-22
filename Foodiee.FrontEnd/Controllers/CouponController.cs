@@ -16,9 +16,13 @@ namespace Foodiee.FrontEnd.Controllers
         {
             List<CouponDTO> coupon = new List<CouponDTO>();
             Response response = await _couponService.getCoupons();
-            if (response != null)
+            if (response != null && response.Success==true)
             {
                 coupon = JsonConvert.DeserializeObject<List<CouponDTO>>(Convert.ToString(response.Result));
+            }
+            else
+            {
+                TempData["error"] = response.Message;
             }
             return View(coupon);
         }
@@ -50,12 +54,16 @@ namespace Foodiee.FrontEnd.Controllers
         public async Task<IActionResult> Delete(string CouponCode)
         {
             Response response = await _couponService.Deletecoupon(CouponCode);
-            if(response.Result!=null && response.Success)
+            if (response.Result != null && response.Success)
             {
+                TempData["success"] = "Coupon Deleted Successfully";
                 return RedirectToAction("Index");
             }
-            
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["error"] = "Some Error Occured";
+                return RedirectToAction("Index");
+            }
         }
     }
 }

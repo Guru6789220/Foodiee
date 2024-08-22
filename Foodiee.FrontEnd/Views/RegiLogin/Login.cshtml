@@ -1,0 +1,143 @@
+﻿@model Foodiee.FrontEnd.Models.LoginDTO
+
+<style type="text/css">
+    .card{
+        width:40%;
+        margin:3% 30% 0px 30%;
+        border:1px solid white;
+        border-radius:5%;
+    }
+
+    .card-header{
+
+        background-color:transparent;
+    }
+
+    .captchacode{
+        background-image: url('https://www.tariniinfra.com/wp-content/plugins/si-contact-form/captcha-secureimage/backgrounds/bg4.jpg');
+        border: 1px solid white;
+        font-weight:600;
+        letter-spacing:8px;
+        text-align:center;
+        color:black;
+        font-size:18px;
+    }
+    .error{
+        color:red;
+        font-size:12px;
+    }
+
+    .no-select {
+        user-select: none; /* Standard syntax */
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        debugger
+        var code = '@ViewBag.captchacode';
+        if (code == "" || code == null) {
+           alert('Error occurred while loading CAPTCHA code. Try again!');
+            $('.txtcaptcha').prop('readonly', true);
+        }
+        else {
+            $('.captchacode').val(code);
+            $('.txtcaptcha').prop('readonly', false);
+        }
+
+        $('.btnreload').click(function () {
+            debugger
+            $.ajax({
+                type: "GET",
+                url: "/RegiLogin/RegenerateCaptcha",
+                dataType: "json",
+                success: function (response) {
+                    debugger
+                    $('.captchacode').val(response);
+                    $('.txtcaptcha').prop('readonly', false);
+                    return false;
+                },
+                error: function (response) {
+                    alert("Error Occured");
+                    $('.txtcaptcha').prop('readonly', true);
+                    return false;
+                }
+            });
+        });
+    });
+    
+</script>
+
+<div class="container-fluid">
+    @using (Html.BeginForm("Login", "RegiLogin", FormMethod.Post))
+    {
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h3 class="display-3" style="font-weight:600;font-size:28px;font-style:italic;">Login</h3>
+            </div>
+            <div class="card-body mx-5">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label class="form-label" asp-for="userName"></label> :
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control col-lg-10" asp-for="userName" autocomplete="off" />
+                        <span class="error" asp-validation-for="userName"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label class="form-label" asp-for="password"></label> : 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-11">
+                        <input type="password" class="form-control" asp-for="password" autocomplete="off" />
+                        <span class="error" asp-validation-for="password"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label class="form-label" asp-for="Captcha"></label> :
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8 text-center">
+
+                        <input type="text" class="form-control captchacode no-select" oncopy="return false;" ondrag="return false;" readonly />
+                        
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btnreload" style="border:0px;background-color:transparent;"><i class="bi bi-arrow-clockwise" style="font-size:18px;font-weight:600;padding:0px;color:navy;"></i></button>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control txtcaptcha" onpaste="return false;"  ondrop="return false;" asp-for="Captcha" placeholder="Captcha Code" autocomplete="off" />
+                        <span class="error" asp-validation-for="Captcha"></span>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-1">
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" class="btn btn-primary col-3">Login</button>
+                        @*  <a href="@Url.Action("NewCoupon","Coupon")" class="btn btn-primary">Back</a> *@
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>-- Dont Have a Account <a href="@Url.Action("","")">Sign In </a>--</p>
+                </div>
+            </div>
+         
+
+        </div>
+    </div>
+    }
+</div>
+@section Scripts {
+    <partial name="_validationscriptspartial"></partial>
+}

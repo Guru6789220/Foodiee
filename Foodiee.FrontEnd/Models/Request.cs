@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 using static Foodiee.FrontEnd.Utility.SD;
 
 namespace Foodiee.FrontEnd.Models
@@ -12,5 +14,7 @@ namespace Foodiee.FrontEnd.Models
         public object? Data { get; set; }
 
         public string? AccessToken { get; set; }
+
+
     }
 }

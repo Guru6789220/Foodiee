@@ -18,14 +18,14 @@
                    <label id="lblCouponCode" class="form-label " asp-for="CouponCode"></label><em class="text-danger"> * </em>: 
                 </div>
                 <div class="col-lg-3">
-                    <input type="text" id="txtcouponcode" class="form-control col-lg-3" asp-for="CouponCode" />
+                    <input type="text" id="txtcouponcode" class="form-control col-lg-3" asp-for="CouponCode" autocomplete="off"/>
                         <span class="text-danger error" asp-validation-for="CouponCode"></span>
                 </div>
                 <div class="col-lg-3 text-end">
                     <label class="form-label" id="lblDiscountPerec" asp-for="DiscountPerce"></label><em class="text-danger"> * </em>:
                 </div>
                 <div class="col-lg-3">
-                    <input type="text" id="txtDiscountPerec" asp-for="DiscountPerce" class="form-control" />
+                    <input type="text" id="txtDiscountPerec" asp-for="DiscountPerce" class="form-control" autocomplete="off"/>
                     <span class="text-danger error" asp-validation-for="DiscountPerce"></span>
                 </div>
             </div>
@@ -34,14 +34,14 @@
                     <label id="lblminamount" asp-for="MiniumAmount" class="form-label"></label><em class="text-danger"> * </em>:
                 </div>
                 <div class="col-lg-3">
-                    <input class="col-lg-3 form-control" id="txtMinAmmount" asp-for="MiniumAmount" />
+                    <input class="col-lg-3 form-control" id="txtMinAmmount" asp-for="MiniumAmount" autocomplete="off"/>
                         <span class="text-danger error" asp-validation-for="MiniumAmount"></span>
                 </div>
                  <div class="col-lg-3 text-end">
                      <label id="lblStartDate" class="form-label" asp-for="StartDate"></label><em class="text-danger"> * </em>:
                  </div>
                  <div class="col-lg-3">
-                    <input type="datetime-local" class="form-control" id="start"  asp-for="StartDate"  />
+                    <input type="datetime-local" class="form-control" id="start"  asp-for="StartDate" autocomplete="off" />
                         <span class="text-danger error" asp-validation-for="StartDate"></span>
                  </div>
                
@@ -51,7 +51,7 @@
                     <label id="lblStartDate" class="form-label" asp-for="EndDate"></label><em class="text-danger"> * </em>:
                 </div>
                 <div class="col-lg-3">
-                    <input type="datetime-local" class="form-control" id="start" name="EndDate" asp-for="EndDate" value="@DateTime.Now.AddDays(10).ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(60).ToString("yyyy-MM-dd")" />
+                    <input type="datetime-local" class="form-control" id="start" name="EndDate" asp-for="EndDate" value="@DateTime.Now.AddDays(10).ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(60).ToString("yyyy-MM-dd")" autocomplete="off"/>
                         <span class="text-danger error" asp-validation-for="EndDate"></span>
                 </div>
 

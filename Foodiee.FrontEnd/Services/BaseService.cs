@@ -10,10 +10,13 @@ namespace Foodiee.FrontEnd.Services
     public class BaseService : IBaseService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ITokenProvider tokenProvider;
 
-        public BaseService(IHttpClientFactory httpClientFactory)
+        public BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
         {
-            _httpClientFactory= httpClientFactory;
+            _httpClientFactory = httpClientFactory;
+            this.tokenProvider = tokenProvider;
+
         }
         public async Task<Response?> SendAsync(Request request)
         {
@@ -22,6 +25,11 @@ namespace Foodiee.FrontEnd.Services
                 HttpClient client = _httpClientFactory.CreateClient("CouponApi");
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "Application/json");
+
+                //token
+                var token = tokenProvider.GetToken();
+                message.Headers.Add("Authorization", $"Bearer {token}");
+                
                 message.RequestUri = new Uri(request.Url);
                 if (request.Data != null)
                 {

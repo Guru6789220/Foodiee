@@ -1,8 +1,124 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style type="text/css">
+    .customheader{
+        /* background: linear-gradient(to left, #833ab4, #fd1d1d, #fcb045); */
+        background: linear-gradient(to left, #e9d362, #333333);
+        height:40px;
+        border-radius:5px;
+        border:0px !important;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    .customfooter{
+        height:35px;
+        position:absolute;
+        bottom:0;
+        color:white;
+        font-weight:600;
+    }
+
+    .NewImages{
+        width:97%;
+        height:96%;
+        margin: 3px; /* Space around the image */
+        object-fit: cover; /* Ensure the image covers the area */
+        border-radius:10px;
+    }
+
+    .card-body{
+        overflow:hidden;
+        background:transparent;
+        border:1px;
+    }
+    .gradient-text{
+      /*   background: linear-gradient(to right, #8e0e00, #1f1c18); */
+        background-clip:text;
+        color:white;
+        font-weight:600;
+    }
+
+    .header {
+        background:transparent;
+    }
+    .card{
+        border:0px;
+    }
+
+    .Heading{
+        font-size:20px;
+        font-weight: 600;
+        background: linear-gradient(to right, #ff4b1f, #1fddff);
+        background-clip:text;
+        color:transparent;
+
+    }
+
+    .carousel {
+        pointer-events: none;
+    }
+    </style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="card shadow-lg" style="margin:1% 0px 0px 0px;border:none;border-radius:10px;height:30vh;">
+                <div class="card-header text-center customheader">
+                    <p class="display-3 gradient-text" style="font-size:18px;">New Launch's</p>
+                </div>
+                <div class="card-body p-0">
+                    <img class="NewImages" src="https://static.tnn.in/thumb/msid-111582131,thumbsize-12712,width-1280,height-720,resizemode-75/111582131.jpg?quality=100" />
+                </div>
+                <div class="card-footer customfooter">
+                    <p style="font-size:14px;margin:-7px 0px 0px 0px;">On Janaray 08 12:30PM</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card" style="border-radius:10px;">
+                <div class="card-body p-0">
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img style="width:100%;height:30vh;border-radius:10px;object-fit:cover" src="https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/614c92ccb25152fe.jpg?q=20" class="d-block w-100" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img style="width:100%;height:30vh;border-radius:10px;" src="https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/3c93e011a12d4fea.jpg?q=20" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img style="width:100%;height:30vh;border-radius:10px;" src="https://images-eu.ssl-images-amazon.com/images/G/31/img24hp/urec/hero/Under1499_Tallhero_3000x1200._CB568928188_.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img style="width:100%;height:30vh;border-radius:10px;" src=" https://images-eu.ssl-images-amazon.com/images/G/31/img22/Wireless/devjyoti/GW/Uber/Nov/D103625178_DesktopTallHero_3000x1200_V3._CB558389732_.jpg" class="d-block w-100" alt="...">
+                            </div>
+                           
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="card shadow-lg" style="margin:1% 0px 0px 0px;border:none;border-radius:10px;height:30vh;">
+                <div class="card-header text-center customheader">
+                    <p class="display-3 gradient-text" style="font-size:18px;">Best Offer's</p>
+                </div>
+                <div class="card-body p-0">
+                    <img class="NewImages" src="https://cdn2.desidime.com/cdn-cgi/image/fit=crop,f=auto,onerror=redirect,w=1200,h=1200,q=90/topics/photos/1471816/original/New_Cashback_and_discount_offers_on_bank_credit_cards_and_debit_cards_2022.jpg" />
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <br />
+    <div class="row">
+        <div class="card shadow-sm">
+            <div class="card-header header">
+                <h4 class="display-3 Heading">Best Deal's On Electronics</h4>
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
 </div>

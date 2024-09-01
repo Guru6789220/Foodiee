@@ -1,11 +1,38 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var expiretime=TimeSpan.FromSeconds(180);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title style="font-weight:600;">Foodie - Satisfy Your Every Craving.</title>
-    <link rel="icon" href="~/Images/Logo.png" type="image/x-icon" />
-  
+    <title style="font-weight:600;">Tech Shop - EveryThing At One Place.</title>
+    <link rel="icon" href="~/Images/Logo1.png" type="image/x-icon" />
+ <style type="text/css">
+     .navbar{
+          border:0px !important;
+          box-shadow:none!important;
+          background: linear-gradient(to left, #0f0c29, #302b63, #24243e);
+        }
+
+        .nav-link{
+              
+            color:white !important;
+            font-weight:600;
+            font-style:italic;
+        }
+      
+        .footer{
+          /*   background: linear-gradient(to left, #34e89e, #0f3443);   */
+            background: linear-gradient(to left, #0f0c29, #302b63, #24243e);
+        }
+        .body{
+            padding:0px;
+            margin:0px;
+            background:white !important;
+        }
+ </style>
 </head>
 <body>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -17,51 +44,71 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <img src="~/Images/Logo.png" style="width:80px;height:50px;filter: drop-shadow(0 0 1px yellow);" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="26" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+                <img src="~/Images/Logo.png" style="width:80px;height:50px;" class="mx-3" />
+                
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex ">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center">
+                        <li class="nav-item col-lg-7">
+                           
+                            <input type="text" class="form-control col-12" placeholder="Search For products . . . . " style="width:100%;" />
+
+                        </li>
+                        <li class="nav-item col-lg-2 text-white mx-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0" />
+                            </svg>
+                        </li>
+                       @*  <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Coupon" asp-action="Index">Coupon</a>
-                        </li>
+                            <a class="nav-link" asp-area="" asp-controller="Coupon" asp-action="Index">Coupon</a>
+                        </li> *@
                     </ul>
                 </div>
+                
                 <div class="text-end">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <a class="nav-link text-dark" asp-controller="RegiLogin" asp-action="Login" >Login</a>
+                        <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" asp-controller="RegiLogin" asp-action="Login">Login</a></li>
+                        @* <li class="nav-item"><a class="nav-link" asp-controller="" asp-action="">Register</a></li> *@
+                        </ul>
                     }
                     else
                     {
-                    
-                            <a class="nav-link text-dark" href="#">@User.Identity.Name.ToString()</a>
+                        <ul class="navbar-nav">
+                            <li class="nav-item" style="font-weight:600;font-style:italic;"><a class="nav-link">Hello @User.Identity.Name.ToString()</a></li>
+                            <li class="nav-item" style="font-weight:600;"> <a class="nav-link text-danger" asp-controller="RegiLogin" asp-action="LogOut"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+                        </ul>
                        
-                        <a class="nav-link text-danger" asp-controller="RegiLogin" asp-action="LogOut"><i class="bi bi-box-arrow-left"></i> Logout</a>
                     }
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container-fluid">
+       
             @RenderBody()
+            
             <partial name="_Notification"/>
-        </main>
+
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Foodiee.FrontEnd - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-center">
+           <span style="color:white;font-style:italic;">&copy; 2024 - I <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                </svg>TechShop - EveryThing At One Place.
+            </span>
         </div>
     </footer>
     
@@ -72,5 +119,31 @@
    
     
     @await RenderSectionAsync("Scripts", required: false)
+    <script type="text/javascript">
+        var cookieExpireTimeInSeconds = @expiretime / 1000;
+
+        function startCountdown(expireTimeInSeconds) {
+            debugger
+            var countdownDate = new Date().getTime() + expireTimeInSeconds * 1000;
+
+            var x = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = countdownDate - now;
+
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        }
+            startCountdown(cookieExpireTimeInSeconds);
+   
+        </script>
 </body>
 </html>

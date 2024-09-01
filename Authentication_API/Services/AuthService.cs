@@ -5,7 +5,7 @@ using Authentication_API.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Authentication_API.Services
+namespace Authentication_API.Services 
 {
     public class AuthService : IAuthService
     {

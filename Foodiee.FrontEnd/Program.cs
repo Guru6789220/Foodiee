@@ -21,7 +21,7 @@ builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.ExpireTimeSpan = TimeSpan.FromSeconds(20);
+        options.ExpireTimeSpan = TimeSpan.FromSeconds(200);
         options.LoginPath = "/RegiLogin/Login";
         options.AccessDeniedPath = "/Home/Index";
     });
@@ -45,6 +45,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=RegiLogin}/{action=Login}/{id?}");
 
 app.Run();

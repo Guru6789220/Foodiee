@@ -102,7 +102,7 @@ namespace Foodiee.FrontEnd.Controllers
                 Jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.NameId).Value));
 
             identity.AddClaim(new Claim(ClaimTypes.Name, 
-                Jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.NameId).Value));
+                Jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Name).Value));
             
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);

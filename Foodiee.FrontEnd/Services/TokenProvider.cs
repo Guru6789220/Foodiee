@@ -13,21 +13,21 @@ namespace Foodiee.FrontEnd.Services
         }
         public void ClearToken(string name)
         {
-            string Tname = SD.TokenCookie + "_Guru@gmail.com";
+            string Tname = SD.TokenCookie;
             httpContextAccessor.HttpContext.Response.Cookies.Delete(Tname);
         }
 
         public string? GetToken()
         {
             string? token = null;
-            string names = SD.TokenCookie + "_Guru@gmail.com";
+            string names = SD.TokenCookie;
             bool? hastoken = httpContextAccessor.HttpContext.Request.Cookies.TryGetValue(names, out token);
             return hastoken is true ? token : null;
         }
 
         public void SetToken(string name, string token)
         {
-            string Tname = SD.TokenCookie + "_Guru@gmail.com";
+            string Tname = SD.TokenCookie;
             httpContextAccessor.HttpContext.Response.Cookies.Append(Tname, token);
         }
     }

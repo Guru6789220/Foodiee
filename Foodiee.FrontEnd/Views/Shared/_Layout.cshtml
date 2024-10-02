@@ -1,12 +1,10 @@
-﻿@{
-    var expiretime=TimeSpan.FromSeconds(180);
-}
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title style="font-weight:600;">Tech Shop - EveryThing At One Place.</title>
     <link rel="icon" href="~/Images/Logo1.png" type="image/x-icon" />
  <style type="text/css">
@@ -36,6 +34,14 @@
             color:red;
             font-size:11.5px;
             font-weight:600;
+        }
+
+        .card-header {
+            background: linear-gradient(to left, #0f0c29, #302b63, #24243e);
+        }
+        .display-3{
+            color:white;
+            font-size:30px !important;
         }
  </style>
 </head>
@@ -121,34 +127,9 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-   
+    <script src="~/codeseven-toastr-50092cc/build/toastr.min.js"></script>
     
     @await RenderSectionAsync("Scripts", required: false)
-    <script type="text/javascript">
-        var cookieExpireTimeInSeconds = @expiretime / 1000;
-
-        function startCountdown(expireTimeInSeconds) {
-            debugger
-            var countdownDate = new Date().getTime() + expireTimeInSeconds * 1000;
-
-            var x = setInterval(function () {
-                var now = new Date().getTime();
-                var distance = countdownDate - now;
-
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("countdown").innerHTML = "EXPIRED";
-                }
-            }, 1000);
-        }
-            startCountdown(cookieExpireTimeInSeconds);
-   
-        </script>
+  
 </body>
 </html>

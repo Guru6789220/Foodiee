@@ -33,7 +33,7 @@ namespace Foodiee.FrontEnd.Services
                 message.RequestUri = new Uri(request.Url);
                 if (request.Data != null)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(request.Data),Encoding.UTF8,"Application/Json");
+                    message.Content = new StringContent(JsonConvert.SerializeObject(request.Data), Encoding.UTF8, "application/json");
                 }
                 HttpResponseMessage apiresponse = null;
                 switch (request.ApiMethod)
@@ -61,7 +61,9 @@ namespace Foodiee.FrontEnd.Services
                     case HttpStatusCode.Unauthorized:
                         return new() { Success = false, Message = "Unauthorized" };
                     case HttpStatusCode.InternalServerError:
-                        return new() { Success = false,Message="Internal Server Erroe" };
+                        return new() { Success = false,Message="Internal Server Error" };
+                    case HttpStatusCode.BadRequest:
+                        return new() { Success = false, Message = "One or more validation errors occurred" };
                     default:
                         if (HttpStatusCode.OK == apiresponse.StatusCode)
                         {

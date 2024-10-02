@@ -1,0 +1,114 @@
+﻿@model BrandDTO;
+<style>
+    .card {
+        width: 60%;
+        margin: 0px 20% 0px 20%;
+    }
+
+    .logo {
+        width: 100%;
+        height: 100%;
+        margin: 30px 5px 5px 5px;
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        //convert imag to bytes and show show image
+
+        document.getElementById("brandlogo").addEventListener('change', function (event) {
+            debugger;
+            var file = event.target.files[0];
+            var allowedExtension = ['png', 'jpg', 'jpeg', 'gif'];
+            var filextension = file.name.split('.').pop().toLowerCase();
+            if (!allowedExtension.includes(filextension)) {
+                $('.fileerror').text("Invalid File Type - Please Upload Image( .jpg, .jpeg, .png, .gif)");
+                $('.hdnbase64').val("");
+            }
+            else {
+                if (file && file.size <= (1 * 1024 * 1024)) {
+                    debugger
+                    const reader = new FileReader();
+                    reader.onloadend = function () {
+                        debugger
+                        const base64string = reader.result;
+                        $('#imglogo').prop("src", base64string);
+                        $('.hdnbase64').val(base64string);
+                        $('.fileerror').text("");
+                    }
+                    // Start reading the file as a Data URL
+                    reader.readAsDataURL(file);
+                }
+                else {
+                    $('.fileerror').text("File Should Be Less Than 1MB");
+                    $('.hdnbase64').val("");
+                }
+            }
+        });
+
+    });
+</script>
+<div class="container-fluid">
+    <form asp-action="AddBrand" method="post">
+
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="display-3">Add New Brand</h4>
+            </div>
+            <div class="card-body">
+                <table style="width:100%" class="table table-responsive-lg">
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="form-label" asp-for="BrandName"></label><em class="text-danger"> * </em>:
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input id="brandname" class="form-control" asp-for="BrandName" autocomplete="off" />
+                                    <span class="error text-danger" asp-validation-for="BrandName"></span>
+                                </div>
+                            </div>
+                            <label class="form-label" asp-for="BrandDesc"></label><em class="text-danger"> * </em>:
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <textarea id="banddesc" class="form-control" asp-for="BrandDesc" autocomplete="off"></textarea>
+                                    <span class="error text-danger" asp-validation-for="BrandDesc"></span>
+                                </div>
+                            </div>
+                            <label class="form-label" asp-for="BrandLogo"></label><em class="text-danger"> * </em>:
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input type="file" id="brandlogo" class="form-control" accept=".png,.jpg,.jpeg,.gif" />
+                                    <span class="error text-danger fileerror" asp-validation-for="BrandLogo"></span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td  style="width:28%;height:200px;">
+                            <img src="https://www.legrand.com.kh/modules/custom/legrand_ecat/assets/img/no-image.png" alt="Not Found" id="imglogo" class="logo shadow-sm" ondrag="return false" ondrop="return false" draggable="false" />
+                            <input class="hdnbase64 invisible" type="text" asp-for="BrandLogo" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="row mt-2 mb-2">
+                                <div class="col-lg-12 text-center">
+                                    <a type="button" class="btn btn-secondary" asp-action="BrandDetails" asp-controller="Sellers">Back</a>
+                                    <button type="submit" class="btn btn-primary ">Save</button>
+                                    <button type="reset" class="btn btn-primary ">Clear</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_validationscriptspartial"></partial>
+}

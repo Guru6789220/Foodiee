@@ -1,6 +1,7 @@
 ﻿using Foodiee.FrontEnd.Models;
 using Foodiee.FrontEnd.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace Foodiee.FrontEnd.Controllers
@@ -9,32 +10,43 @@ namespace Foodiee.FrontEnd.Controllers
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ICategory_BrandService category_Brand;
-       
+        private readonly IProductServices productServices;
 
-        public SellersController(IHttpContextAccessor httpContextAccessor,ICategory_BrandService category_Brand)
+        public SellersController(IHttpContextAccessor httpContextAccessor,ICategory_BrandService category_Brand,IProductServices productServices)
         {
             _httpContextAccessor = httpContextAccessor;
             this.category_Brand = category_Brand;
+            this.productServices= productServices;
             
         }
         public IActionResult Category()
         {
-            _httpContextAccessor.HttpContext.Session.Clear();
+            
             return View();
         }
 
         [HttpPost]
-        public IActionResult Category(CategoryDTO categoryDTO)
+        public async Task<IActionResult> Category(CategoryDTO categoryDTO)
         {
             try
             {
-                if (!ModelState.IsValid)
+                categoryDTO.CreatedBy = await UserName();
+                if (ModelState.IsValid)
                 {
+                    Response res=await category_Brand.SaveCategory(categoryDTO);
+                    if(res.Success)
+                    {
+                        TempData["success"] = res.Message;
+                        return RedirectToAction("CategoryDetails", "Sellers");
+                    }
+                    else
+                    {
 
+                    }
                 }
                 else
                 {
-
+                    return View(categoryDTO);
                 }
             }
             catch (Exception ex)
@@ -43,38 +55,6 @@ namespace Foodiee.FrontEnd.Controllers
             }
             return View(categoryDTO);
         }
-
-        [HttpPost]
-        public async Task<JsonResult> SaveFile(IFormFile CategoryImage)
-        {
-            string message = null;
-            if (CategoryImage.Length > 0 && CategoryImage.Length < (1 * 1024 * 1024))
-            {
-                string? oldpath = _httpContextAccessor.HttpContext?.Session.GetString("FilePath");
-                if (oldpath != null && oldpath != "")
-                {
-                    System.IO.File.Exists(oldpath);
-                    System.IO.File.Delete(oldpath);
-                }
-                
-                    var path = Path.Combine("E:\\MVC\\UploadedFiles\\", CategoryImage.FileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                       await CategoryImage.CopyToAsync(stream);
-                       
-                   
-                    }
-                message = "/uploadedfiles/" + CategoryImage.FileName;
-            }
-            
-            else
-            {
-                message = "Error Occured During ImageSave";
-            }
-
-            return Json(message);
-        }
-
 
         [HttpGet]
         public IActionResult AddBrand()
@@ -121,5 +101,35 @@ namespace Foodiee.FrontEnd.Controllers
             ViewBag.BrandDetails = Brand;
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CategoryDetails()
+        {
+            Response res = await category_Brand.CategoryDetails();
+            if(res.Success&&res.Result!=null)
+            {
+                ViewBag.Categorys = JsonConvert.DeserializeObject<List<CategoryDTO>>(res.Result.ToString());
+            }
+            else
+            {
+                TempData["error"] = "No Data Found!";
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddProduct()
+        {
+            Response ress = await productServices.Load_Category_Brand();
+            if(ress.Success && ress.Result!=null) 
+            {
+                var res=JsonConvert.DeserializeObject<ProductsDTO>(ress.Result.ToString());
+                ViewBag.Brand = new SelectList(res.Brand, "BrandId", "BrandName");
+                ViewBag.Category = new SelectList(res.Category, "CategoryId", "CategoryName");
+            }
+            return View();
+        }
+
     }
+
 }

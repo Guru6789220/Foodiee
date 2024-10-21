@@ -1,0 +1,52 @@
+﻿<style type="text/css">
+    .logos {
+        width: 55px;
+        height: 55px;
+        background-size: 100% 100%;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <div class="col-lg-12 d-flex justify-content-between">
+                <h3 class="display-3 px-3">Category Detail's ...</h3>
+                <a class="btn btn-primary" asp-controller="Sellers" asp-action="Category"><i class="bi bi-plus-circle"></i>&nbsp;Create New </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div style="width:100%;overflow:auto">
+                        <table class="table table-bordered table-stripped text-center">
+                            <thead class="table-dark">
+                            <th></th>
+                            <th>Category</th>
+                            <th>Category Description</th>
+                            <th>Created Date</th>
+                            <th>Created By</th>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.Categorys != null)
+                                {
+                                    foreach (var items in ViewBag.Categorys)
+                                    {
+                                        <tr>
+                                            <td style="width:60px;"><div class="logos shadow-lg" style="background-image:url('@items.CategoryImageURL');"></div></td>
+                                            <td><b>@items.CategoryName</b></td>
+                                            <td>@items.CategoryDesc</td>
+                                            <td>@items.CategoryDesc</td>
+                                            <td>@items.CreatedBy</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

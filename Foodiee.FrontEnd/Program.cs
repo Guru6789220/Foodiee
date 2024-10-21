@@ -20,6 +20,7 @@ builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IRegiLoginServices, RegiLoginServices>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<ICategory_BrandService, Category_BrandService>();
+builder.Services.AddScoped<IProductServices, ProductServices>();
 
 
 //add session

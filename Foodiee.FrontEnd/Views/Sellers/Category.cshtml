@@ -22,73 +22,40 @@
     $(function () {
         $('.form-control').attr("autocomplete", "off");
 
-        $('.btnsave').click(function (event) {
-           return FileValidation();
-           
-        });
-
-        $('.Files').change(function () {
+        $('.Files').change(function (event) {
             debugger
-            var fileInput = $(this)[0].files[0];
-            var formData = new FormData();
-            formData.append('CategoryImage', fileInput);
-
-            var res = FileValidation();
-            if (res == true) {
-                $.ajax({
-                    type:"POST",
-                    url: "@Url.Action("SaveFile", "Sellers")",
-                    data:formData,
-                    processData: false,
-                    contentType: false,
-                    success:function(data)
-                    {
-                        debugger
-                        if (data != "" && data!= null) {
-                            $('.CategoryImg').attr('src', data);
-                        }
-                    },
-                    error:function(data)
-                    {
-                        alert("Error Occured");
+            var file = event.target.files[0];
+            var allowedextension = ['png', 'jpg', 'jpeg', '.gif'];
+            var fileextension = file.name.split('.').pop().toLowerCase();
+            if (!allowedextension.includes(fileextension)) {
+                $('.docerror').text("Invalid File Type - Please Upload Image( .jpg, .jpeg, .png, .gif)");
+                $('.hdnCategoryimg').val('');
+            }
+            else
+            {
+                if (file && file.size<=(5*1024*1024)) { 
+                    var reader = new FileReader();
+                    reader.onloadend = function () {
+                        const Base64 = reader.result;
+                        $('.CategoryImg').prop("src", Base64);
+                        $('.hdnCategoryimg').val(Base64);
                     }
-            });                
+
+                    reader.readAsDataURL(file);
+                }
+                else{
+                    $('.docerror').text("File Should Be Less Than 1MB");
+                    $('.hdnCategoryimg').val('');
+                }
             }
-          
-            $('.btnclear').click(function () {
-                $('#CategoryName').val("");
-                $('#CategoryDesc').val("");
-                $('.Files').val("");
-                $('.CategoryImg').attr("src", "  https://www.legrand.com.kh/modules/custom/legrand_ecat/assets/img/no-image.png");
-                return false;
-            });
         });
-
-        function FileValidation(){
-            debugger;
-
-            // Use jQuery to get the file input element
-            var fileInput = $('.Files')[0].files[0];
-            var MaxSize = 1 * 1024 * 1024;
-            var errordoc = document.querySelector('span[data-valmsg-for="CategoryDetails.CategoryImageURL"]');
-
-            if (fileInput.size > MaxSize) {
-                errordoc.textContent='File Size Should Be Less Than 10MB';
-                $('.Files').val();
-                return false;
-            }
-            else {
-                errordoc.textContent="";
-                return true;
-            }
-        }
     
     });
     
 
 </script>
 <div class="container-fluid">
-    <form asp-action="Category" method="post" enctype="multipart/form-data">
+    <form asp-action="Category" method="post" >
     <div class="card">
         <div class="card-header text-center">
             <h4 class="display-3 Heading" >Add New Category</h4>
@@ -98,41 +65,42 @@
                 <div class="col-lg-9">
                     <div class="row">
                         <div class="col-lg-12">
-                            <label asp-for="CategoryDetails.CategoryName" class="form-label"></label><em class="text-danger"> * </em>:
+                            <label asp-for="CategoryName" class="form-label"></label><em class="text-danger"> * </em>:
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <input asp-for="CategoryDetails.CategoryName" class="form-control" id="CategoryName" />
-                            <span class="error" asp-validation-for="CategoryDetails.CategoryName"></span>
+                            <input asp-for="CategoryName" class="form-control" id="CategoryName" />
+                            <span class="error" asp-validation-for="CategoryName"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <label class="form-label" asp-for="CategoryDetails.CategoryDesc"></label><em class="text-danger"> * </em>:
+                            <label class="form-label" asp-for="CategoryDesc"></label><em class="text-danger"> * </em>:
                         </div>
                     </div>
                     <div class="row">
                     <div class="col-lg-12">
-                        <textarea asp-for="CategoryDetails.CategoryDesc" class="form-control" id="CategoryDesc"></textarea>
-                        <span class="error" asp-validation-for="CategoryDetails.CategoryDesc"></span>
+                        <textarea asp-for="CategoryDesc" class="form-control" id="CategoryDesc"></textarea>
+                        <span class="error" asp-validation-for="CategoryDesc"></span>
                     </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <label class="form-label" asp-for="CategoryDetails.CategoryImageURL"></label><em class="text-danger"> * </em>:
+                            <label class="form-label" asp-for="CategoryImageURL"></label><em class="text-danger"> * </em>:
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <input type="file" name="CategoryImage"  asp-for="CategoryDetails.CategoryImageURL" class="form-control Files" />
-                            <span class="error docerror" asp-validation-for="CategoryDetails.CategoryImageURL"></span>
+                            <input type="file" name="CategoryImage" class="form-control Files" accept=".png,.jpg,.jpeg,.gif" />
+                            <span class="error docerror" asp-validation-for="CategoryImageURL"></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3">
                         <img class="mt-2 shadow-sm CategoryImg"  src="https://www.legrand.com.kh/modules/custom/legrand_ecat/assets/img/no-image.png" alt="" style="width:100%;height:95%;border:1px solid white;border-radius:10px;" />
-                </div>
+                        <input type="text" class="invisible hdnCategoryimg" asp-for="CategoryImageURL"/>
+                    </div>
             </div>
             <br />
             <div class="row">

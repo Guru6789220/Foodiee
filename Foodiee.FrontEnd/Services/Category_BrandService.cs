@@ -14,6 +14,27 @@ namespace Foodiee.FrontEnd.Services
             this.baseService = baseService;
         }
 
+        public async Task<Response> SaveCategory(CategoryDTO category)
+        {
+            try
+            {
+                return await baseService.SendAsync(new Request
+                {
+                    ApiMethod = SD.Apitype.POST,
+                    Url = SD.CouponApiBase + "/api/Category/SaveCategory",
+                    Data = category
+                });
+                
+            } 
+            catch (Exception ex)
+            {
+                response.Result = null;
+                response.Success= false;
+                response.Message = ex.Message;
+                return response;
+            }
+        }
+
         public async Task<Response> SaveDetails(BrandDTO brand)
         {
             try
@@ -48,6 +69,24 @@ namespace Foodiee.FrontEnd.Services
             {
                 response.Result = "";
                 response.Success = true;
+                response.Message = ex.Message;
+                return response;
+            }
+        }
+
+        public async Task<Response> CategoryDetails()
+        {
+            try
+            {
+                return await baseService.SendAsync(new Request { 
+                    ApiMethod=SD.Apitype.GET,
+                    Url=SD.CouponApiBase+ "/api/Category/GetCategory"
+                });
+            }
+            catch(Exception ex)
+            {
+                response.Success = false;
+                response.Result = null;
                 response.Message = ex.Message;
                 return response;
             }

@@ -8,9 +8,10 @@
     }
 
     .flex-items{
-        border-top:1px solid gray;
-        border-left: 1px solid gray;
-        border-right: 1px solid gray;
+        border-top: 1px solid #808080ab;
+        border-left: 1px solid #808080ab;
+        border-right: 1px solid #808080ab;
+        border-radius:5px;
         width:90%;
         height:60px;
     }
@@ -22,6 +23,7 @@
         width:100%;
         height:100%;
         padding:2px;
+        border-radius:5px;
     }
 </style>
 
@@ -82,32 +84,32 @@
                             <label class="form-label " asp-for="ProductImage"></label><em class="text-danger"> * </em>:
                         </div>
                         <div class="col-lg-6">
-                            <input type="file"  class="form-control" accept=".png,.jpg,.jpeg" multiple="4"/>
+                            <input type="file"  class="form-control ProductImages" accept=".png,.jpg,.jpeg" multiple/>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="row mt-1">
                         <div class="col-lg-5 px-2 col-8" style="height:180px;">
-                            <img class="displayImage" src="" alt="not found" style="height:100%;width:100%;border:1px solid white;border-radius:10px;" />
+                            <img class="displayImage" src="" alt="not found" style="height:100%;width:100%;border:1px solid white;border-radius:10px;"  />
                         </div>
                         <div class="col-lg-2 col-2 flex-container">
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600" alt="notfound" id="img2" />
+                                <img class="ImgStyle hover-img" src="" alt="Image 1" id="img1" />
                             </div>
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg?auto=compress&cs=tinysrgb&w=600" alt="not found" id="img3" />
+                                <img class="ImgStyle hover-img" src="" alt="Image 2" id="img2" />
                             </div>
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="https://images.pexels.com/photos/133472/pexels-photo-133472.jpeg?auto=compress&cs=tinysrgb&w=600" alt="not found" id="img4" />
+                                <img class="ImgStyle hover-img" src="" alt="Image 3" id="img3" />
                             </div>
                         </div>
                         <div class="col-lg-2 col-2 flex-container">
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="https://images.pexels.com/photos/110686/pexels-photo-110686.jpeg?auto=compress&cs=tinysrgb&w=600" alt="notfound" id="img2" />
+                                <img class="ImgStyle hover-img" src="" alt="Image 4" id="img4" />
                             </div>
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="https://images.pexels.com/photos/265216/pexels-photo-265216.jpeg?auto=compress&cs=tinysrgb&w=600" alt="not found" id="img3" />
+                                <img class="ImgStyle hover-img" src="" alt="Image 5" id="img5" />
                             </div>
                             </div>
                     </div>
@@ -131,9 +133,41 @@
 </div>
 <script type="text/javascript">
     $(function () {
+
+        $('.displayImage,.hover-img').attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s");
        
+        $('.ProductImages').on('change', function (event) {
+            debugger
+            $('.displayImage,.hover-img').attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s");
+            var Images = event.target.files;
+            if(Images.length<=5)
+            {
+                for (let i = 0; i < Images.length;i++)
+                {
+                    if (Images[i].size <= (1 * 1024 * 1024)) {
+                        const reader = new FileReader();
+                        reader.onloadend=function(){
+                            const base64 = reader.result;
+                            if (i == 0) { 
+                                $('.displayImage').attr("src", base64);
+                            }
+                            var img = $("#img" +(i+1));
+                            img.attr("src", base64);
+ 
+                        }
+                        reader.readAsDataURL(Images[i]);
+                    }
+
+                }
+            }
+            else{
+                alert("You Can Upload 5 Images less than 1MB each")
+            }
+
+        });
+
         $('.hover-img').on('mouseover', function () {
-            const displayImage = $('.displayImage'); // Correct ID
+            const displayImage = $('.displayImage'); 
             var srcValue = $(this).attr('src'); // Get the src of the hovered image
             displayImage.attr("src", srcValue).show(); // Set the src and show the display image
         });

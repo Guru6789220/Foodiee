@@ -2,7 +2,9 @@
 using Foodiee.FrontEnd.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Foodiee.FrontEnd.Controllers
 {
@@ -120,6 +122,7 @@ namespace Foodiee.FrontEnd.Controllers
         [HttpGet]
         public async Task<IActionResult> AddProduct()
         {
+             
             Response ress = await productServices.Load_Category_Brand();
             if(ress.Success && ress.Result!=null) 
             {
@@ -130,6 +133,47 @@ namespace Foodiee.FrontEnd.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddProduct(ProductsDTO productsDTO)
+        {
+            if(ModelState.IsValid)
+            {
+                for(int i = 0;i<productsDTO.ProductImage.Count;i++)
+                {
+                    
+                    string path= await SaveImages(productsDTO.ProductImage[i]);
+                    productsDTO.FilePaths.Add(new Models.Images());
+                    productsDTO.FilePaths[i].FilePath = path;
+                }
+
+                Response res = new Response();
+                Products prod = new()
+                {
+                    ProductId = 0,
+                    CategoryId = (int)productsDTO.CategoryId,
+                    BrandId = (int)productsDTO.BrandId,
+                    ProductName = productsDTO.ProductName,
+                    ProductDescription = productsDTO.ProductDesc,
+                    BasicPrice = Convert.ToDecimal(productsDTO.BasePrice),
+                    ProductHighlight = productsDTO.IsAvaliable,
+                    CreatedBy = 1,
+                    Images = productsDTO.FilePaths.Select(f=> new Files
+                    {
+                        FilePath=f.FilePath
+                    }).ToList()
+
+
+                };
+                res = await productServices.SaveProduct(prod);
+
+                return View();
+            }
+            else
+            {
+                return View(productsDTO);
+            }
+        }
+      
     }
 
 }

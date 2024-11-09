@@ -25,14 +25,19 @@
         padding:2px;
         border-radius:5px;
     }
+    .ProductHighlight{
+        display:none;
+    }
+
+    
 </style>
 
 
-
+<form method="post" asp-action="AddProduct" enctype="multipart/form-data">
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header">
-            <h5>Add New Product</h5>
+    <div class="card mt-1 mb-1">
+        <div class="card-header text-center">
+            <h5 style="color:white;">New Product</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -40,17 +45,19 @@
                     <label asp-for="CategoryId" class="form-label"></label><em class="text-danger"> * </em>:
                 </div>
                 <div class="col-lg-3">
-                    <select asp-items="@ViewBag.Category" class="form-control">
-                        <option vlaue="-1">--Select--</option>
+                    <select asp-for="CategoryId" asp-items="@ViewBag.Category" class="form-control">
+                        <option value="-1" selected>--Select--</option>
                     </select>
+                    <span class="error text-danger" asp-validation-for="CategoryId"></span>
                 </div>
                 <div class="col-lg-1 text-end">
                     <label asp-for="BrandId" class="form-label"></label><em class="text-danger"> * </em>:
                 </div>
                 <div class="col-lg-3">
-                    <select asp-items="@ViewBag.Brand" class="form-control">
-                        <option vlaue="-1">--Select--</option>
+                    <select asp-for="BrandId" asp-items="@ViewBag.Brand" class="form-control">
+                        <option value="-1" selected>--Select--</option>
                     </select>
+                        <span class="error text-danger" asp-validation-for="BrandId"></span>
                 </div>
             </div>
             <div class="row">
@@ -61,6 +68,7 @@
                         </div>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" asp-for="ProductName" />
+                                <span class="error text-danger" asp-validation-for="ProductName"></span>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -69,6 +77,7 @@
                         </div>
                         <div class="col-lg-6">
                             <input class="form-control" asp-for="ProductCode" />
+                                <span class="error text-danger" asp-validation-for="ProductCode"></span>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -76,7 +85,8 @@
                             <label class="form-label" asp-for="BasePrice"></label><em class="text-danger"> * </em>:
                         </div>
                         <div class="col-lg-6">
-                            <input asp-for="BasePrice" class="form-control" />
+                            <input  asp-for="BasePrice" class="form-control" />
+                                <span class="error text-danger" asp-validation-for="BasePrice"></span>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -84,8 +94,9 @@
                             <label class="form-label " asp-for="ProductImage"></label><em class="text-danger"> * </em>:
                         </div>
                         <div class="col-lg-6">
-                            <input type="file"  class="form-control ProductImages" accept=".png,.jpg,.jpeg" multiple/>
-                        </div>
+                                <input type="file" name="ProductImage" asp-for="ProductImage" class="form-control ProductImages" accept=".png,.jpg,.jpeg" multiple />
+                                <span class="error text-danger" asp-validation-for="ProductImage"></span>
+                            </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -95,21 +106,21 @@
                         </div>
                         <div class="col-lg-2 col-2 flex-container">
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="" alt="Image 1" id="img1" />
+                                    <img class="ImgStyle hover-img" src="" alt="Image 1" id="img1" draggable="false" />
                             </div>
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="" alt="Image 2" id="img2" />
+                                    <img class="ImgStyle hover-img" src="" alt="Image 2" id="img2" draggable="false" />
                             </div>
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="" alt="Image 3" id="img3" />
+                                    <img class="ImgStyle hover-img" src="" alt="Image 3" id="img3" draggable="false" />
                             </div>
                         </div>
                         <div class="col-lg-2 col-2 flex-container">
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="" alt="Image 4" id="img4" />
+                                    <img class="ImgStyle hover-img" src="" alt="Image 4" id="img4" draggable="false" />
                             </div>
                             <div class="flex-items">
-                                <img class="ImgStyle hover-img" src="" alt="Image 5" id="img5" />
+                                    <img class="ImgStyle hover-img" src="" alt="Image 5" id="img5" draggable="false" />
                             </div>
                             </div>
                     </div>
@@ -121,18 +132,90 @@
                 </div>
                 <div class="col-lg-7">
                     <textarea asp-for="ProductDesc" class="form-control"></textarea>
+                        <span class="error text-danger" asp-validation-for="ProductDesc"></span>
                 </div>
             </div>
             <div class="row mt-1">
                 <div class="col-lg-3 text-end">
                     <label asp-for="IsAvaliable" class="form-label"></label><em class="text-danger"> * </em>:
                 </div>
+            
+            <div class="col-lg-3">
+                <label>
+                    <input type="radio" id="Yes" name="Avaliable" asp-for="IsAvaliable" value="1" class="highlight" />
+                    <label for="Yes" class="form-label mx-2" >Yes</label>
+                        <input type="radio" id="No" name="Avaliable" class="mx-1 highlight" asp-for="IsAvaliable" value="0" checked />
+                    <label for="No" class="form-label">No</label>
+                </label>
+            </div>
+            </div>
+            <div class="ProductHighlight mt-1">
+                <div class="row">
+                    <label class="d-flex justify-content-center">
+                    <div class="col-lg-5 mx-2 col-8">
+                            <textarea id="ProductHigh1" class="form-control" style="height:180px;" placeholder="Product Description"></textarea>
+                    </div>
+                    <div class="col-lg-2 col-4">
+                        <div style="width:100%;height:180px;">
+                                <img style="width:100%;height:100%;border-radius:10px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s" />
+                        </div>
+                    </div>
+                    </label>
+                </div>
+                <div class="row mt-2">
+                    <label class="d-flex justify-content-center">
+                        <div class="col-lg-2 mx-2 col-4">
+                            <div style="width:100%;height:180px;">
+                                <img style="width:100%;height:100%;border-radius:10px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s" />
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-8">
+                            <textarea id="ProductHigh2" class="form-control" style="height:180px;" placeholder="Product Description"></textarea>
+                        </div>
+                        
+                    </label>
+                </div>
+                <div class="row mt-2">
+                    <label class="d-flex justify-content-center">
+                        <div class="col-lg-5 mx-2 col-8">
+                            <textarea id="ProductHigh3" class="form-control" style="height:180px;" placeholder="Product Description"></textarea>
+                        </div>
+                        <div class="col-lg-2 col-4">
+                            <div style="width:100%;height:180px;border-radius:10px;">
+                                <img style="width:100%;height:100%;border-radius:10px;z-index:100;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s" />
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-12 text-center">
+                    <button type="button" id="btnback" class="btn btn-secondary">Back</button>
+                    <button type="submit" id="btnsave" class="btn btn-primary">Save</button>
+                    <button type="reset" id="btnclear" class="btn btn-primary">Clear</button>
+                </div>
             </div>
         </div>
     </div>
+<br />
 </div>
+</form>
+
 <script type="text/javascript">
     $(function () {
+
+        $('.highlight').on("click", function () {
+            debugger;
+            var chkvalue = $(this).val();
+            if(parseInt(chkvalue)!=0)
+            {
+                $('.ProductHighlight').css("display", "block");
+            }
+            else{
+                $('.ProductHighlight').css("display", "none");
+            }
+        });
 
         $('.displayImage,.hover-img').attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s");
        

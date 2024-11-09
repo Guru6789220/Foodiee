@@ -31,5 +31,27 @@ namespace Foodiee.FrontEnd.Services
                 return response;
             }
         }
+
+        public async Task<Response> SaveProduct(Products productsDTO)
+        {
+            try
+            {
+                return await baseService.SendAsync(new Request
+                {
+                    ApiMethod = SD.Apitype.POST,
+                    Data = productsDTO,
+                    Url = SD.CouponApiBase + "/api/Category/SaveProduct"
+                });
+
+            }
+            catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                response.Result = null;
+
+                return response;
+            }
+        }
     }
 }

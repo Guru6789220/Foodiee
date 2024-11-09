@@ -29,6 +29,8 @@ namespace Foodiee.FrontEnd.Services
                 //token
                 var token = tokenProvider.GetToken();
                 message.Headers.Add("Authorization", $"Bearer {token}");
+
+                //var MultiPartContent = new MultipartFormDataContent();
                 
                 message.RequestUri = new Uri(request.Url);
                 if (request.Data != null)

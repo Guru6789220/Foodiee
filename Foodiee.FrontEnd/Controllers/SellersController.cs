@@ -136,15 +136,14 @@ namespace Foodiee.FrontEnd.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProduct(ProductsDTO productsDTO)
         {
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                for(int i = 0;i<productsDTO.ProductImage.Count;i++)
-                {
-                    
-                    string path= await SaveImages(productsDTO.ProductImage[i]);
-                    productsDTO.FilePaths.Add(new Models.Images());
-                    productsDTO.FilePaths[i].FilePath = path;
-                }
+
+                List<string> files = await SaveImages(productsDTO.ProductImage);
+                List<string> Highlightfiles1 = await SaveImages(productsDTO.HighlightImage1);
+                List<string> Highlightfiles2 = await SaveImages(productsDTO.HighlightImage2);
+                List<string> Highlightfiles3 = await SaveImages(productsDTO.HighlightImage3);
 
                 Response res = new Response();
                 Products prod = new()
@@ -157,11 +156,10 @@ namespace Foodiee.FrontEnd.Controllers
                     BasicPrice = Convert.ToDecimal(productsDTO.BasePrice),
                     ProductHighlight = productsDTO.IsAvaliable,
                     CreatedBy = 1,
-                    Images = productsDTO.FilePaths.Select(f=> new Files
+                    Images = files.Select(s => new Files
                     {
-                        FilePath=f.FilePath
+                        FilePath = s.ToString()
                     }).ToList()
-
 
                 };
                 res = await productServices.SaveProduct(prod);

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Foodiee.FrontEnd.Models
 {
@@ -40,10 +41,29 @@ namespace Foodiee.FrontEnd.Models
         [DisplayName("Product Description")]
         public string? ProductDesc { get; set; }
 
-        [DisplayName("Highlight's Avaliable")]
+        [DisplayName("Product Highlight's Avaliable")]
         public int IsAvaliable { get; set; }
 
         public List<Images> FilePaths { get; set; } = new List<Images>();
+
+       
+        [MaxLength(2500)]
+        public string? productHighlight1 { get; set; }
+
+        public List<IFormFile>? HighlightImage1 { get; set; } = new List<IFormFile>();
+
+        [MaxLength(2500)]
+        public string? productHighlight2 { get; set; }
+
+        public List<IFormFile>? HighlightImage2 { get; set; } = new List<IFormFile>();
+
+        [MaxLength(2500)]
+        public string? productHighlight3 { get; set; }
+
+        public List<IFormFile>? HighlightImage3 { get; set; } = new List<IFormFile>();
+
+
+
 
     }
         public class Brands

@@ -59,35 +59,11 @@
         pointer-events: none;
     }
 
-    .cardimg {
-        border: 1px groove white;
-        width: 98%;
-        height: 98%;
-        margin: 1%;
-        border-radius:10px;
-    }
+    
 
-    .card-img {
-        width: 99%;
-        height: 58%;
-        border-radius:10px;
-        background:transparent;
-        border:0px;
-    }
 
-    .productname{
-        font-size:14px;font-weight:550;
-        text-align:center;
-    }
 
-    .offer{
-        width:30%;
-        height:30px;
-        background:red;
-        border:1px solid red;
-        position:absolute;
-        top:15%;
-    }
+    
 
     .logolist {
         width: 60px; /* width of the circle */
@@ -102,22 +78,21 @@
        background-repeat:no-repeat;
        box-sizing:border-box;
     }
-
       
 </style>
 <script>
-    $(function(){
-        printWithEllipsis('OnePlus Nord CE4 Lite 5G (Ultra Orange, 8GB RAM, 128GB Storage)');
-    });
-    function printWithEllipsis(text) {
-        debugger
-    const words = text;
-    if (words.length > 25) {
-            $('.productname').text(words.slice(0, 46) + '....');
-    } else {
-    console.log(text);
-    }
-    }
+    // $(function(){
+    //     printWithEllipsis('OnePlus Nord CE4 Lite 5G (Ultra Orange, 8GB RAM, 128GB Storage)');
+    // });
+    // function printWithEllipsis(text) {
+    //     debugger
+    // const words = text;
+    // if (words.length > 25) {
+    //         $('.productname').text(words.slice(0, 46) + '....');
+    // } else {
+    // console.log(text);
+    // }
+    // }
 </script>
 
 <div class="container-fluid">
@@ -179,26 +154,50 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-12" style="height:280px;">
-                        <div></div>
-                        <div class="card" style="border:1px solid green; width:15%;height:100%;">
-                            <div class="offer"></div>
-                            <div class="card-header p-0  card-img">
-                                <img class="cardimg" src="https://static.tnn.in/thumb/msid-111582131,thumbsize-12712,width-1280,height-720,resizemode-75/111582131.jpg?quality=100" href="#" />
-                               
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p id="productname" class="productname">
-                                            OnePlus Nord CE4 Lite 5G (Ultra Orange, 8GB RAM, 128GB Storage)
-                                        </p>
+                    <div class="col-12">
+                        <!-- Set the width to allow horizontal scroll and prevent vertical scroll -->
+                        <div class="BestDeals">
+                            @foreach (var products in ViewBag.ProductDetails)
+                            {
+                                string filepath = products.Images.Replace("E:\\MVC\\UploadedFiles\\", "/uploadedfiles/");
+                                <div class="card ProductCard" >
+                                    <div class="rateing"><i class="bi bi-star-fill star"></i><span>4.2</span></div>
+                                    <div class="Heart"><i class="bi bi-heart-fill"></i></div>
+                                    <div class="card-header p-0 card-img">
+                                        <img class="ProductImages" src="@filepath" />
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="row">
+                                            <div class="col-lg-12 p-0">
+                                                <p id="productname" class="productname">
+                                                   @products.ProductName<br />
+                                                    @products.ProductDescription
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 d-flex justify-content-center p-0">
+                                                <strike class="baseprice">₹@products.BasicPrice</strike>&nbsp;&nbsp;<span class="discountprice">₹<span>8500</span></span>
+                                            </div>
+                                            <div class="col-lg-4 p-0">
+                                                <div class="discount text-center p-0">
+                                                <span class="discountpercen"><span>10%</span> off</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <span class="saletimmer">Sale Ends in 00:00:00</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

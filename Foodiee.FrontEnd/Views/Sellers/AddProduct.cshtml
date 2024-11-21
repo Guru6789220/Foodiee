@@ -149,41 +149,70 @@
                 </label>
             </div>
             </div>
-            <div class="ProductHighlight mt-1">
+            <div class="ProductHighlight mt-1 mb-3">
                 <div class="row">
                     <label class="d-flex justify-content-center">
-                    <div class="col-lg-5 mx-2 col-8">
-                            <textarea id="ProductHigh1" class="form-control" style="height:180px;" placeholder="Product Description"></textarea>
+                    <div class="col-lg-8 mx-2 col-8">
+                                <div class="row mt-1 mb-1">
+                                    <div class="col-lg-12">
+                                        <input type="file" class="form-control" id="FileHighlight1" accept="png,jpeg,jpg,gif" asp-for="HighlightImage1" />
+                                        <span class="error text-danger HighlightImage1"></span>
+                                </div>
+                                </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                        <textarea id="ProductHigh1" asp-for="productHighlight1" class="form-control" style="height:180px;" placeholder="Product Highlight's "></textarea>
+                                        <span class="error text-danger ProductHighlight1"></span>
+                            </div>
+                        </div>
+                        
+                            
                     </div>
                     <div class="col-lg-2 col-4">
-                        <div style="width:100%;height:180px;">
-                                <img style="width:100%;height:100%;border-radius:10px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s" />
-                        </div>
+                      <img style="width:100%;height:100%;border-radius:10px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s" />
                     </div>
                     </label>
                 </div>
                 <div class="row mt-2">
                     <label class="d-flex justify-content-center">
                         <div class="col-lg-2 mx-2 col-4">
-                            <div style="width:100%;height:180px;">
                                 <img style="width:100%;height:100%;border-radius:10px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s" />
-                            </div>
                         </div>
-                        <div class="col-lg-5 col-8">
-                            <textarea id="ProductHigh2" class="form-control" style="height:180px;" placeholder="Product Description"></textarea>
+                        <div class="col-lg-8 col-8">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-lg-12">
+                                        <input type="file" asp-for="HighlightImage2" id="FileHighlight2" class="form-control" accept="image/png, image/jpg, image/jpeg, image/gif" />
+                                        <span class="error text-danger HighlightImage2"></span>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                        <textarea id="ProductHigh2" asp-for="productHighlight2" class="form-control" style="height:180px;" placeholder="Product Highlight's "></textarea>
+                                        <span class="error text-danger ProductHighlight2"></span>
+                                    </div>
+                            </div>
                         </div>
                         
                     </label>
                 </div>
                 <div class="row mt-2">
                     <label class="d-flex justify-content-center">
-                        <div class="col-lg-5 mx-2 col-8">
-                            <textarea id="ProductHigh3" class="form-control" style="height:180px;" placeholder="Product Description"></textarea>
+                        <div class="col-lg-8 mx-2 col-8">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-lg-12">
+                                        <input type="file" class="form-control" id="FileHighlight3" accept="image/png,image/jpg,image/jpeg,image/gif" />
+                                        <span class="error text-danger HighlightImage3"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                        <textarea id="ProductHigh3" asp-for="productHighlight3" class="form-control" style="height:180px;" placeholder="Product HighLight's "></textarea>
+                                        <span class="error text-danger ProductHighlight3"></span>
+                                    </div>
+                            </div>
                         </div>
                         <div class="col-lg-2 col-4">
-                            <div style="width:100%;height:180px;border-radius:10px;">
                                 <img style="width:100%;height:100%;border-radius:10px;z-index:100;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3CETL_OertJKScoHfblxs6CBrKGVCmVESw&s" />
-                            </div>
                         </div>
                     </label>
                 </div>
@@ -191,9 +220,9 @@
             </div>
             <div class="row mt-2">
                 <div class="col-lg-12 text-center">
-                    <button type="button" id="btnback" class="btn btn-secondary">Back</button>
-                    <button type="submit" id="btnsave" class="btn btn-primary">Save</button>
-                    <button type="reset" id="btnclear" class="btn btn-primary">Clear</button>
+                    <button type="button" id="btnback" class="btn btn-secondary col-1">Back</button>
+                    <button type="submit" id="btnsave" class="btn btn-primary col-1">Save</button>
+                    <button type="reset" id="btnclear" class="btn btn-primary col-1">Clear</button>
                 </div>
             </div>
         </div>
@@ -201,10 +230,12 @@
 <br />
 </div>
 </form>
-
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}
 <script type="text/javascript">
     $(function () {
-
+        $('.form-control').attr('autocomplete', 'off');
         $('.highlight').on("click", function () {
             debugger;
             var chkvalue = $(this).val();
@@ -258,5 +289,28 @@
         $('.hover-img').on('mouseout', function () {
             $('#displayImage').hide(); 
         });
+
+        $('form').on('click', '#btnsave', function () {
+            debugger
+            var vform = $('form').valid();
+
+            var choice = $('input[name="Avaliable"]:checked').val();
+            if (parseInt(choice) == 1 && vform==false) {
+                    if ($('#FileHighlight1').val() == "" && $('#FileHighlight2').val() == "" && $('#FileHighlight3').val() == "") {
+                        $('.HighlightImage1,.HighlightImage2,.HighlightImage3').text('Upload Image - Image Should Be .png, .jpg, .jpeg, .gif and Image Size Should Be Less than 5MB');
+                        return false;
+                    }
+                    // if ($('#ProductHigh1').val() == "" && $('#ProductHigh1').val() == "" && $('#ProductHigh1').val() == "") {
+                    //     $('.ProductHighlight1,.ProductHighlight2,.ProductHighlight3').text("Enter Product Highlight Description");
+                    //     return false;
+                    // }
+                }
+            else if (vform==false) {
+                $('.HighlightImage1,.HighlightImage2,.HighlightImage3').text('');
+                    return false;
+                }
+            
+        });
+
     });
 </script>

@@ -1,0 +1,87 @@
+﻿.row {
+    --bs-gutter-x:0px !important;
+}
+.BestDeals {
+    height:320px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    white-space: nowrap; 
+    width:100%;
+}
+.ProductCard {
+    border: 1px solid rgba(128, 128, 128, 0.33) !important;
+    width: 17%;
+    height: 95%;
+    display: inline-block !important;
+    margin: 0px 3px 0px 3px;
+    padding: 4px;
+    border-radius: 6px !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+}
+.star{
+    font-size:12px;
+    padding:0px 3px 0px 0px;
+}
+.rateing {
+    width: 21%;
+    height: 27px;
+    background: green;
+    position: absolute;
+    margin: 20% 0px 0px -5px;
+    border-radius: 0px 15px 15px 0px;
+    border: 1px solid green;
+    color: white;
+    text-align: center;
+    font-weight: 550;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+.Heart {
+    position: absolute;
+    font-size: 20px;
+}
+.Heart:hover{
+    color:red;
+    overflow:hidden;
+}
+.ProductImages {
+    border: 1px groove white;
+    width: 98%;
+    height: 98%;
+    margin: 1%;
+    border-radius: 10px;
+}
+.card-img {
+    width: 99%;
+    height: 60%;
+    border-radius: 10px;
+    background: white !important;
+    border: 0px;
+}
+.productname {
+    font-size: 14px;
+    font-weight: 550;
+    text-align: center;
+}
+.baseprice{
+    color:gray;
+    font-size:14px;
+    letter-spacing:0.5px;
+}
+.discountprice{
+    font-weight:550;
+    font-size:17px;
+    letter-spacing:0.5px;
+}
+.discount {
+    background: rgb(204, 12, 57);
+    border: 1px groove rgb(204, 12, 57);
+    border-radius:5px;
+    color:white;font-weight:550;
+}
+.saletimmer {
+    color: rgb(204, 12, 57);
+    font-weight:550;
+    font-size:12px;
+    padding:0px 0px 0px 5px;
+}

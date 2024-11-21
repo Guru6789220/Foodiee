@@ -53,5 +53,25 @@ namespace Foodiee.FrontEnd.Services
                 return response;
             }
         }
+
+        public async Task<Response> LoadProducts()
+        {
+            try
+            {
+                return await baseService.SendAsync(new Request
+                {
+                    ApiMethod = SD.Apitype.GET,
+                    Url = SD.CouponApiBase + "/api/Product/GetProducts"
+                });
+            }
+            catch (Exception ex)
+            {
+                
+                response.Success = false;
+                response.Message = ex.Message;
+                response.Result= null;
+                return response;
+            }
+        }
     }
 }

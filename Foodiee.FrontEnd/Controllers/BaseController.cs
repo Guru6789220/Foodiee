@@ -22,28 +22,27 @@ namespace Foodiee.FrontEnd.Controllers
             return username;
         }
 
-        protected async Task<string> SaveImages(IFormFile FileDetails)
+        protected async Task<List<string>> SaveImages(List<IFormFile> FileDetails)
         {
-            string FilePath="";
-            if(FileDetails!=null && FileDetails.Length>0)
+            List<string>Afilepath = new List<string>();
+            for (int i = 0; i < FileDetails.Count(); i++)
             {
-                string FileName=Path.GetFileName(FileDetails.FileName);
-                FileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + FileName;
-                 FilePath=Path.Combine("E:\\MVC\\UploadedFiles", FileName);
-
-                using(var stream=new FileStream(FilePath,FileMode.CreateNew))
+                string FilePaths = "";
+                if (FileDetails[i] != null && FileDetails[i].Length > 0)
                 {
-                    await FileDetails.CopyToAsync(stream);
+                    string FileName = Path.GetFileName(FileDetails[i].FileName);
+                    FileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + FileName;
+                    FilePaths = Path.Combine("E:\\MVC\\UploadedFiles", FileName);
+                    Afilepath.Add(FilePaths);
+                    using (var stream = new FileStream(FilePaths, FileMode.CreateNew))
+                    {
+                        await FileDetails[i].CopyToAsync(stream);
+                    }
+                    
                 }
-
             }
-            return FilePath;
+            return Afilepath;
         }
 
-        public class Images
-        {
-            public string? FileName { get; set; }
-            public string? FilePath { get; set; }
-        }
     }
 }

@@ -28,12 +28,23 @@ namespace Foodiee.FrontEnd.Models
         public int CreatedBy { get; set; }
 
         public List<Files> Images { get; set; }=new List<Files>();
+        
+        public string? productHighlight1 { get; set; }
 
-       
+        public List<Files> FirstHighlightIMG { get; set; }
+        
+        public string? productHighlight2 { get; set; }
+        public List<Files> SecondHighlightIMG { get; set; }
+
+        public string? productHighlight3 { get; set; }
+
+        public List<Files> ThirdHighlightIMG { get; set; }
+
+
     }
     public class Files
     {
         public string? FilePath { get; set; }
-
     }
+    
 }

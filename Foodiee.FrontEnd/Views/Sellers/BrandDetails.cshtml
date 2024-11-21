@@ -37,10 +37,10 @@
                         
                             <table id="brandtable" class="table table-bordred table-striped text-center">
                                 <thead class="table-dark text-center">
-                                    <th style ="width:10%;"></th>
-                                    <th style="width:10%;">Brand Name</th>
-                                    <th>Brand Description</th>
-                                    <th>Created Date</th>
+                                    
+                                    <th style="width:10%;">Brand's</th>
+                                    <th>Brand's Description</th>
+                                    <th style="width:150px;">Created Date</th>
                                     <th></th>
                                     <th></th>
                                 </thead>
@@ -50,10 +50,9 @@
                                     foreach (var item in ViewBag.BrandDetails)
                                     {
                                         <tr>
-                                            <td><img src='@item.BrandLogo' alt="Not Found" class="logos shadow-lg" /></td>
-                                            <td><b><i>@item.BrandName</i></b></td>
+                                            <td><span><img src='@item.BrandLogo' alt="Not Found" class="logos shadow-lg" /><p class="p-0 m-0 d-none"><i>@item.BrandName</i></p></span></td>
                                             <td><i>@item.BrandDesc</i></td>
-                                            <td>@DateTime.Now</td>
+                                            <td>@DateTime.Now.ToString("dd/MM/yyyy")</td>
                                             <td><button class="btn text-primary custombutton" asp-route-id="@item.BrandId"><i class="bi bi-pencil-square"></i></button></td>
                                             <td><button class="text-danger btn custombutton" asp-route-id="@item.BrandId"><i class="bi bi-trash3"></i></button></td>
                                         </tr>
